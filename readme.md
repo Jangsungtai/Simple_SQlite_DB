@@ -1,14 +1,23 @@
 C:\Code work\DB_edu\
 │
 ├── app.py               # Streamlit 애플리케이션의 진입점
+
 ├── db\
+
 │   ├── __init__.py      # 빈 파일
+
 │   └── db_operations.py # 데이터베이스 연산(조회, 입력 등)을 처리하는 파일
+
 │   └── img\             # 이미지 폴더 
+
 ├── data\
+
 │   ├── init_db.py       # SQLite 데이터베이스 초기화 및 샘플 데이터 삽입
+
 │   └── students.db      # SQLite 데이터베이스 파일
+
 └── requirements.txt     # 필요한 패키지 목록
+
 
 
 DB 연습 
