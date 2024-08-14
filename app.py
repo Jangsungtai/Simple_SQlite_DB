@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from db.db_operations import get_all_students, get_student_grades, add_student, delete_student, update_student_grade, add_student_grade, search_students
+from db.db_operations import get_all_students, get_student_grades, add_student, delete_student, update_student_grade, get_major_aggregates, add_student_grade, search_students
 
 st.title('Student Information Management')
 
@@ -29,9 +29,37 @@ with st.expander("Search Student Grades by ID", expanded=False):
                 st.write(f"**Major**: {row['major']}")
                 st.write(f"**Address**: {row['address']}")
                 st.write(f"**Email**: {row['email']}")
+                st.write(f"**Religion**: {row['religion']}")
+                st.write(f"**Dominant Hand**: {row['dominant_hand']}")
                 st.write("---")
         else:
             st.write(f"No grades found for student ID: {student_id}")
+
+
+# 전공 그룹별 집계 섹션 (Expander 사용)
+with st.expander("Aggregate Functions by Major Group", expanded=False):
+    st.subheader('Aggregate Functions by Major Group')
+
+    # 전공 그룹 선택 (ALL 옵션 추가)
+    major_group = st.selectbox("Select Major Group", ["ALL", "Computer Science", "Mathematics", "Physics", "Chemistry", "Biology", "History", "Literature", "Economics", "Engineering"])
+
+    if st.button('Get Aggregates'):
+        aggregates_df = get_major_aggregates(major_group)
+        if aggregates_df is not None and not aggregates_df.empty:
+            total_students = aggregates_df.loc[0, 'total_students']
+            average_age = aggregates_df.loc[0, 'average_age']
+            male_students = aggregates_df.loc[0, 'male_students']
+            female_students = aggregates_df.loc[0, 'female_students']
+            average_gpa = aggregates_df.loc[0, 'average_gpa']
+
+            # None 타입에 대한 처리를 추가
+            st.write(f"**Total Students**: {total_students if total_students is not None else 'N/A'}")
+            st.write(f"**Average Age**: {average_age:.1f}" if average_age is not None else "**Average Age**: N/A")
+            st.write(f"**Male Students**: {male_students if male_students is not None else 'N/A'}")
+            st.write(f"**Female Students**: {female_students if female_students is not None else 'N/A'}")
+            st.write(f"**Average GPA**: {average_gpa:.2f}" if average_gpa is not None else "**Average GPA**: N/A")
+        else:
+            st.write(f"No data found for major group: {major_group}")
 
 # 학생 추가 섹션
 with st.expander("Add New Student", expanded=False):
