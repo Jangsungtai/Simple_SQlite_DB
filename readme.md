@@ -1,16 +1,16 @@
 #1. 실행 with streamlit
 #2. 실행화면 
 1) 메인화면
-   <img src="https://github.com/user-attachments/assets/fc0db39e-50fb-4d2f-bf40-423b80caa743" width="400" />
+<img src="https://github.com/user-attachments/assets/fc0db39e-50fb-4d2f-bf40-423b80caa743" width="800" />
 
 3) 전체 데이터검색 
-   <img src="https://github.com/user-attachments/assets/3571af70-739c-4455-9551-888f3ff4e20a" width="200" />
+<img src="https://github.com/user-attachments/assets/3571af70-739c-4455-9551-888f3ff4e20a" width="800" />
    
 4) 개벌 레코드 접근 (SELECT 명령어)
-   <img src="https://github.com/user-attachments/assets/2705c4aa-6484-48ed-a7d2-bc380e8a8ff1" width="400" />
+<img src="https://github.com/user-attachments/assets/2705c4aa-6484-48ed-a7d2-bc380e8a8ff1" width="800" />
 
 5) 집계함수 (SUM, AVG, COUNT)
-       <img src="https://github.com/user-attachments/assets/2705c4aa-6484-48ed-a7d2-bc380e8a8ff1" width="400" />
+<img src="https://github.com/user-attachments/assets/2705c4aa-6484-48ed-a7d2-bc380e8a8ff1" width="800" />
 
 #3. 폴더 구조
 
