@@ -1,3 +1,6 @@
+SQlite를 활용한 DB 및 웹을 활용한 기본적인 DB 실습내용 
+
+
 1. 실행 with streamlit
 2. 실행화면
 
