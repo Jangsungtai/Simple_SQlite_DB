@@ -9,37 +9,31 @@ def connect_db():
 def get_all_students():
     conn = connect_db()
     query = '''
-    SELECT id, name, birthdate, grade, major, email,admission_date,address
+    SELECT *
     FROM student_total
-    ORDER BY name ASC
+    ORDER BY id ASC
     '''
     df = pd.read_sql(query, conn)
     conn.close()
     return df
-"""    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    birthdate TEXT,
-    admission_date TEXT,
-    grade INTEGER,
-    major TEXT,
-    address TEXT,
-    email TEXT,
-    img TEXT
-    """
 
-
-# 학생 성적 조회 (지정된 컬럼만 선택)
+# 학생 성적 조회 (지정된 컬럼만 선택, 이미지 없을 시 기본 이미지 설정)
 def get_student_grades(student_id):
     conn = connect_db()
     query = '''
     SELECT student_total.id, student_total.name, student_total.img, student_grades.gpa,
            student_total.birthdate, student_total.grade, student_total.admission_date,
-           student_total.major, student_total.address, student_total.email
+           student_total.major, student_total.address, student_total.email,
+           student_grades.religion, student_grades.dominant_hand
     FROM student_total
     LEFT JOIN student_grades ON student_total.id = student_grades.student_id
     WHERE student_total.id = ?
     '''
     df = pd.read_sql(query, conn, params=(student_id,))
+    
+    # 이미지가 없을 경우 기본 이미지 설정
+    df['img'] = df['img'].apply(lambda x: x if x else 'db/12.jpg')
+    
     conn.close()
     return df
 
@@ -54,9 +48,9 @@ def add_student(name, birthdate, admission_date, grade, major, address, email, i
     
     student_id = cursor.lastrowid
     cursor.execute('''
-    INSERT INTO student_grades (student_id, name, gpa)
-    VALUES (?, ?, ?)
-    ''', (student_id, name, 0.0))  # 초기 성적 정보 추가 (GPA 0.0)
+    INSERT INTO student_grades (student_id, name, gpa, religion, dominant_hand)
+    VALUES (?, ?, ?, ?, ?)
+    ''', (student_id, name, 0.0, 'Unknown', 'right'))  # 초기 성적 정보 추가 (GPA 0.0, religion, dominant_hand 기본값)
     
     conn.commit()
     conn.close()
@@ -98,5 +92,38 @@ def search_students(query_condition):
     except Exception as e:
         df = None
         print(f"Error executing query: {e}")
+    conn.close()
+    return df
+
+# 전공별 집계 함수
+def get_major_aggregates(major):
+    conn = connect_db()
+
+    if major == "ALL":
+        query = '''
+        SELECT
+            COUNT(*) AS total_students,
+            AVG(CAST((julianday('now') - julianday(birthdate)) / 365.25 AS INTEGER)) AS average_age,
+            SUM(CASE WHEN gender = 'm' THEN 1 ELSE 0 END) AS male_students,
+            SUM(CASE WHEN gender = 'f' THEN 1 ELSE 0 END) AS female_students,
+            AVG(gpa) AS average_gpa
+        FROM student_total
+        LEFT JOIN student_grades ON student_total.id = student_grades.student_id
+        '''
+        df = pd.read_sql(query, conn)
+    else:
+        query = '''
+        SELECT
+            COUNT(*) AS total_students,
+            AVG(CAST((julianday('now') - julianday(birthdate)) / 365.25 AS INTEGER)) AS average_age,
+            SUM(CASE WHEN gender = 'm' THEN 1 ELSE 0 END) AS male_students,
+            SUM(CASE WHEN gender = 'f' THEN 1 ELSE 0 END) AS female_students,
+            AVG(gpa) AS average_gpa
+        FROM student_total
+        LEFT JOIN student_grades ON student_total.id = student_grades.student_id
+        WHERE major = ?
+        '''
+        df = pd.read_sql(query, conn, params=(major,))
+
     conn.close()
     return df
