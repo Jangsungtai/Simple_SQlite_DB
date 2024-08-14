@@ -1,6 +1,6 @@
 1. 실행 with streamlit
    
-  ![image](https://github.com/user-attachments/assets/a90a296d-1457-45b6-a8d0-2841d855c914)
+  ![image](https://github.com/user-attachments/assets/a90a296d-1457-45b6-a8d0-2841d855c914){: width="100" height="100"}
 
 2. 폴더 
   C:\Code work\DB_edu\
