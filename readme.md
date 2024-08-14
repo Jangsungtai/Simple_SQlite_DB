@@ -1,6 +1,13 @@
 1. 실행 with streamlit
-   
-  ![image](https://github.com/user-attachments/assets/a90a296d-1457-45b6-a8d0-2841d855c914){: width="100" height="100"}
+2. 실행화면 
+1) 메인화면 
+![image](https://github.com/user-attachments/assets/fc0db39e-50fb-4d2f-bf40-423b80caa743){: width="50" height="50"}
+2) 전체 데이터검색 
+![image](https://github.com/user-attachments/assets/3571af70-739c-4455-9551-888f3ff4e20a){: width="50" height="50"}
+3) 개벌 레코드 접근 (SELECT 명령어) 
+![image](https://github.com/user-attachments/assets/2705c4aa-6484-48ed-a7d2-bc380e8a8ff1){: width="50" height="50"}
+4) 집계함수 (SUM, AVG, COUNT)
+![image](https://github.com/user-attachments/assets/b6f9e395-ae36-4deb-8e0b-fcb649caadc9){: width="50" height="50"}
 
 2. 폴더 
   C:\Code work\DB_edu\
