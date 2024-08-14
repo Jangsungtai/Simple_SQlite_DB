@@ -19,7 +19,8 @@ SQlite를 활용한 DB 및 웹을 활용한 기본적인 DB 실습내용
 
    5) 집계함수 (SUM, AVG, COUNT)
 
-   <img src="https://github.com/user-attachments/assets/2705c4aa-6484-48ed-a7d2-bc380e8a8ff1" width="600" />
+   <img src="https://github.com/user-attachments/assets/2a4b1a40-9930-4c63-be4a-9b108242a011" width="600" />
+
 
 3. 폴더 구조
 
